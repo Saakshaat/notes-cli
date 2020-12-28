@@ -100,7 +100,7 @@ def reorganize_memory(conn):
     count = int(query.fetchone()[0])
 
     if count >= 25:
-        click.secho(f"Memory Full. Deleted: \n{conn.execute('SELECT created_at, content FROM notes;').fetchone()[1]}",
+        click.secho(f"Memory Full. Deleted note: \n{conn.execute('SELECT created_at, content FROM notes;').fetchone()[1]}",
                     fg='green')
         conn.execute("DELETE FROM notes WHERE id = (SELECT MIN(id) FROM notes);")
 
