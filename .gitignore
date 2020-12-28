@@ -133,4 +133,4 @@ dmypy.json
 .pyre/
 
 # databases
-utils/databases/*
+notes/utils/databases/*
