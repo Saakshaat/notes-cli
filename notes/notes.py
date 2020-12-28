@@ -27,7 +27,7 @@ def display_intro():
     cli_name = click.style("Terminal Notes ~ Saakshaat", fg='blue')
     cli_bars = click.style(get_symbols(), fg='green')
     cli_description = click.style(f"""
-        {"Take notes directly from your terminal."}
+       {"Take notes directly from your terminal."}
 
         {"Notes CLI allows you to save notes locally in a SQLite database which is cached to a memory threshold of 50 notes."}
 
