@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='notes',
-    version='0.1',
+    version='1.0.0',
     py_modules=['notes'],
     install_requires=[
         'Click',
