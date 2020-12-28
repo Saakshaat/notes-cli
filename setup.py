@@ -18,6 +18,7 @@ setup(
     author="Saakshaat Singh",
     author_email="saakshaat2001@gmail.com",
     license="MIT",
+    keywords = ['cli', 'notes', 'terminal'],
     py_modules=['notes'],
     include_package_data=True,
     install_requires=[
