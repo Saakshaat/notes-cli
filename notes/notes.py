@@ -29,7 +29,7 @@ def display_intro():
     cli_description = click.style(f"""
        {"Take notes directly from your terminal."}
 
-        {"Notes CLI allows you to save notes locally in a SQLite database which is cached to a memory threshold of 50 notes."}
+        {"Notes CLI allows you to save notes locally in a SQLite database which is cached to a memory threshold of 25 notes."}
 
         {"With Notes CLI, you can save your ToDos, meeting notes and much more conveniently and quickly."}""",
                                   fg='red')
@@ -95,6 +95,16 @@ def show(ctx, search):
         row = curs.fetchone()
 
 
+def reorganize_memory(conn):
+    query = conn.execute("SELECT COUNT(*) FROM notes;")
+    count = int(query.fetchone()[0])
+
+    if count >= 25:
+        click.secho(f"Memory Full. Deleted: \n{conn.execute('SELECT created_at, content FROM notes;').fetchone()[1]}",
+                    fg='green')
+        conn.execute("DELETE FROM notes WHERE id = (SELECT MIN(id) FROM notes);")
+
+
 @cli.command(help='Add note to memory.', name='add')
 # @click.argument("profile", required=False, type=click.Choice(get_all_profiles()))
 @click.argument('content', required=False)
@@ -107,6 +117,9 @@ def add(ctx, editor, content):
         content = content.replace('\n', ' ')
 
     conn = ctx.obj['conn']
+
+    reorganize_memory(conn)
+
     conn.execute(
         f"""
             INSERT INTO notes (content, created_at) VALUES ('{content}', '{datetime.now().strftime("%H:%M ~ %d %b %Y")}');
