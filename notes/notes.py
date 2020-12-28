@@ -20,7 +20,6 @@ def get_symbols():
     # we need to use a constant value for the ``terminal_width`` since Click's `help` window set's constraints
     # on the width used for the help prompt and the symbols would overflow if the window gets wider
     terminal_width = 36
-    print(terminal_width)
     return "".join(["=" for pix in range(terminal_width)])
 
 
