@@ -4,7 +4,7 @@ from datetime import datetime
 
 import click
 
-from utils import create_connection, wipe_table
+from notes.utils import create_connection, wipe_table
 
 
 def get_centered_text(text: str):
