@@ -2,7 +2,7 @@
 
 A Python based CLI for taking notes from your terminal. 
 
-This application was built using [Click](https://click.palletsprojects.com/), which is a wonderful Python package for building interactive CLIs.
+This application was built using [Click](https://click.palletsprojects.com/), which is a wonderful Python package for building interactive CLIs. It uses a SQLite database to save notes in memory and maintains a threshold of (currently) 25 notes. When the total number of notes reaches the threshold, it deletes the oldest note in memory before adding the new note.
 
 # Installation
 You must first clone this repository with:
