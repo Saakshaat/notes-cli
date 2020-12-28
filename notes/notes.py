@@ -163,5 +163,6 @@ def delete(ctx, date, content):
 # @click.argument("profile", required=False, type=click.Choice(get_all_profiles()))
 @click.pass_context
 def wipe(ctx):
+    click.confirm("Are you sure you want to delete all notes? This cannot be undone.", abort=True)
     wipe_table(ctx.obj["conn"])
     click.echo("MEMORY WIPED SUCCESSFULLY 🧼")
