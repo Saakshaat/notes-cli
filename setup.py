@@ -9,7 +9,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 setup(
-    name='notes-cli',
+    name='py-notes',
     version='1.0.0',
     description="Take notes directly in your terminal.",
     long_description=README,
