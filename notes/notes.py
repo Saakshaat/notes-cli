@@ -89,7 +89,7 @@ def show(ctx, search):
 
 @cli.command(help='Add note to memory.', name='add')
 # @click.argument("profile", required=False, type=click.Choice(get_all_profiles()))
-@click.argument('content', nargs=-1)
+@click.argument('content', required=False)
 @click.option('-e', '--editor', is_flag=True,
               help='Write your notes in vim. Super useful for longer notes.')
 @click.pass_context
@@ -101,36 +101,41 @@ def add(ctx, editor, content):
     conn = ctx.obj['conn']
     conn.execute(
         f"""
-        INSERT INTO notes (content, created_at) VALUES ('{content}', '{datetime.now().strftime("%H:%M ~ %d %b %Y")}');
+            INSERT INTO notes (content, created_at) VALUES ('{content}', '{datetime.now().strftime("%H:%M ~ %d %b %Y")}');
         """
     )
     conn.commit()
 
 
-@cli.command(name='delete', help='Remove note(s) from memory.')
+@cli.command(help='Remove note(s) from memory.', name='delete')
 # @click.argument("profile", required=False, type=click.Choice(get_all_profiles()))
-@click.option('--date', '-d', type=str, help='Look for note to delete by date')
-@click.option('--content', '-c', type=str, help='Look for note to delete by content')
+@click.option('--content', '-c', type=str, required=False, help='Look for note to delete by content')
+@click.option('--date', '-d', type=str, required=False, help='Look for note to delete by date')
 @click.pass_context
 def delete(ctx, date, content):
     conn = ctx.obj['conn']
     if not date and not content:
         click.secho('Must provide either date or content to match note.', bg='red')
-    if date:
+    if date and content:
         conn.execute(
             f"""
-                DELETE notes WHERE notes.created_at LIKE '%{date}%');
+                    DELETE FROM notes WHERE notes.created_at LIKE '%{date}%' AND notes.content LIKE '%{content}%';
+            """
+        )
+    elif date:
+        conn.execute(
+            f"""
+                DELETE FROM notes WHERE notes.created_at LIKE '%{date}%';
             """
         )
     elif content:
         conn.execute(
             f"""
-                        DELETE FROM notes WHERE notes.content LIKE '%{content}%');
-                    """
+                DELETE FROM notes WHERE CONTENT LIKE '%{content}%';
+            """
         )
 
     conn.commit()
-    show(obj={})
 
 
 @cli.command(help='Wipe all notes from memory', name='wipe')
