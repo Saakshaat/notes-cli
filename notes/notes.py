@@ -17,23 +17,30 @@ def get_centered_text(text: str):
 
 
 def get_symbols():
-    terminal_width = int(click.termui.get_terminal_size()[0])
-    return "".join(["=" for i in range(terminal_width)])
+    # we need to use a constant value for the ``terminal_width`` since Click's `help` window set's constraints
+    # on the width used for the help prompt and the symbols would overflow if the window gets wider
+    terminal_width = 36
+    return "".join(["=" for pix in range(terminal_width)])
 
 
 def display_intro():
-    click.secho(f"""
-        Terminal Notes ~ Saakshaat
-    """, fg='blue')
-    click.secho(get_symbols(), fg='green')
-    click.secho(f"""
-        {get_centered_text("Take notes directly from your terminal.")}
-        {get_centered_text("Notes CLI allows you to save notes locally in a SQLite database which is cached to a memory threshold of 50 notes.")}
-        {get_centered_text("With Notes CLI, you can save your ToDos, meeting notes and much more conveniently and quickly.")}
-                """, fg='red')
-    click.secho(get_symbols(), fg='green')
+    cli_name = click.style("Terminal Notes ~ Saakshaat", fg='blue')
+    cli_bars = click.style(get_symbols(), fg='green')
+    cli_description = click.style(f"""
+       {"Take notes directly from your terminal."}
 
-    return None
+        {"Notes CLI allows you to save notes locally in a SQLite database which is cached to a memory threshold of 50 notes."}
+
+        {"With Notes CLI, you can save your ToDos, meeting notes and much more conveniently and quickly."}""",
+                                  fg='red')
+
+    full_intro = f"""{cli_name}\n
+{cli_bars}\n
+{cli_description}\n
+{cli_bars}\n
+    """
+
+    return full_intro
 
 
 def get_all_profiles():
@@ -48,6 +55,7 @@ def get_all_profiles():
 @click.group(help=display_intro())
 @click.pass_context
 def cli(ctx):
+    click.style("", fg='white')
     ctx.ensure_object(dict)
 
     conn, cur = create_connection()
