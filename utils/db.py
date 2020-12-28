@@ -16,7 +16,7 @@ def create_connection():
 
 
 def wipe_table(conn):
-    DB_FILE_PATH = os.path.join(os.path.dirname('__file__/db/'), f'general.sqlite3')
-    conn.execute("DELETE FROM")
+    DB_FILE_PATH = os.path.join(os.path.realpath(f'{__file__}/../databases/'), f'general.sqlite3')
+    conn.execute("DELETE FROM notes")
     os.remove(DB_FILE_PATH)
     create_connection()
