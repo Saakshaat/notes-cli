@@ -4,16 +4,7 @@ from datetime import datetime
 
 import click
 
-from notes.utils import create_connection, wipe_table
-
-
-def get_centered_text(text: str):
-    pad = int(click.termui.get_terminal_size()[0] - len(text)) // 2
-    formatted_text = "".join([" " for pix in range(pad)])
-
-    formatted_text += text
-
-    return formatted_text
+from .utils.db import create_connection, wipe_table
 
 
 def get_symbols():

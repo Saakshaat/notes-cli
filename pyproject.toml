@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "py-notes"
+version = "1.0.2"
+description = "Take notes directly in your terminal."
+authors = ["Saakshaat <saakshaat2001@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/Saakshaat/notes-cli"
+keywords = [
+    "CLI",
+    "Notes",
+    "Poetry"
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.6"
+click = "^7.1.2"
+
+[tool.poetry.dev-dependencies]
+
+
+[tool.poetry.scripts]
+notes = "py_notes.notes:cli"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
