@@ -79,11 +79,12 @@ def show(ctx, search):
 
     row = curs.fetchone()
 
-    click.echo("       Date         |         Content")
-    click.echo("--------------------|--------------------")
+    click.secho("       Date         |         Content", fg='green', bold=True)
+    click.secho("--------------------|--------------------", fg='red', bold=True)
     while row:
-        click.echo("{} | {}".format(row[0], row[1]))
+        click.secho("{} | {}".format(row[0], row[1]), fg='white')
         row = curs.fetchone()
+    click.echo("\n")
 
 
 def reorganize_memory(conn):
@@ -156,4 +157,4 @@ def delete(ctx, date, content):
 def wipe(ctx):
     click.confirm("Are you sure you want to delete all notes? This cannot be undone.", abort=True)
     wipe_table(ctx.obj["conn"])
-    click.echo("MEMORY WIPED SUCCESSFULLY 🧼")
+    click.secho("MEMORY WIPED SUCCESSFULLY 🧼", fg='red', bold=True)

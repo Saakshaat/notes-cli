@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-notes"
-version = "1.0.2"
+version = "1.0.3"
 description = "Take notes directly in your terminal."
 authors = ["Saakshaat <saakshaat2001@gmail.com>"]
 license = "MIT"

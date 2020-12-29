@@ -30,7 +30,7 @@ After installing the CLI successfully, you can run it from whichever environment
 
 `notes <command>` 
 
-![show command demo](https://imgur.com/NPrJgvI.jpg)
+![show command demo](https://imgur.com/rVSe4Yp.jpg)
 
  The application uses a SQLite database to save notes in memory and maintains a threshold of (currently) 25 notes. 
  
